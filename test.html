@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+div#icons {
+  width: 404px;
+}
+div.wrapper {
+  float: left;
+  width: 100px;
+}
+div.code {
+  font-size: smaller;
+  overflow: auto;
+}
+</style>
+<!--[if IE]><script type="text/javascript" src="excanvas.js"></script><![endif]-->
+<script type="text/javascript" src="identicon.js"></script>
+<script type="text/javascript">
+var draw = function() {
+  var size = 90, num_icons = 16,
+      wrapper, canvas, d, i,
+      icons = document.getElementById('icons');
+  while(icons.firstChild) {
+    icons.removeChild(icons.firstChild);
+  }
+  for (i = 0; i < num_icons; i++) {
+    wrapper = document.createElement('div');
+    wrapper.className = "wrapper";
+    icons.appendChild(wrapper);
+    canvas = document.createElement('canvas');
+    canvas.setAttribute("width", size);
+    canvas.setAttribute("height", size);
+    wrapper.appendChild(canvas);
+    if (typeof G_vmlCanvasManager != "undefined") {
+        canvas = G_vmlCanvasManager.initElement(canvas);
+    }
+    code = Math.round(Math.random() * Math.pow(2, 32));
+    new Identicon(canvas, code, size);
+    d = document.createElement('div');
+    d.className = "code";
+    d.innerHTML = code;
+    wrapper.appendChild(d);
+  }
+};
+window.onload = function () {
+  new Identicon('static_cv', 3113572969, 90);
+  draw();
+}
+</script>
+<title>Identicon Test</title>
+</head>
+<body>
+
+<div>
+<canvas id="static_cv" width="90" height="90"></canvas>
+3113572969
+</div>
+<br>
+
+<form name="f">
+<canvas id="cv" width="90" height="90"></canvas>
+<input type="text" name="code" value="3113572969">
+<input type="button" value="draw" onclick="
+  new Identicon('cv', parseInt(document.forms.f.code.value), 90);
+">
+</form>
+<br>
+
+<div id="icons"></div>
+<input type="button" value="reload" onclick="draw();">
+
+</body></html>
+
