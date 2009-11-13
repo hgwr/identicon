@@ -1,6 +1,8 @@
 // identicon.js - Identicon rendering class
 // 
-// hgwrsgr@gmail.com (2009-11-10)
+// hgwrsgr@gmail.com (2009-11-14)
+// http://www.moreslowly.jp/products/identicon/
+// http://github.com/hgwr/identicon
 // 
 // Based on Jeff Atwood's C# Code
 // Identicon-sample-vs-2005-v13/App_Code/IdenticonRenderer.cs
