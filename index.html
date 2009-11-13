@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>identicon.js - A JavaScript Implementation of Identicon</title>
+</head>
+<body>
+
+<h2>identicon.js - A JavaScript Implementation of Identicon</h2>
+
+<p>hgwrsgr@gmail.com (2009-11-14)</p>
+
+<h3>はじめに</h3>
+
+<p>
+<a href="identicon.js">identicon.js</a> (<a href="test.html" >実行例</a>) は、
+Don Park が発明した <a href="http://en.wikipedia.org/wiki/Identicon" >Identicon</a> の
+JavaScript による実装です。 HTML5 の canvas タグを使って
+Identicon を描画しています。
+</p>
+
+<p>サーバ側で Identicon 画像を生成してブラウザに送るのではなく、画像の元となる数値と JavaScript
+コードをブラウザに送って、ブラウザ側で Identicon を描画させようということを意図しています。
+</p>
+
+<p>
+github で公開しています。 <a href="http://github.com/hgwr/identicon" >hgwr's identicon at master - GitHub</a>
+</p>
+
+<p>
+Identicon については、次のページが詳しいです。
+</p>
+
+<ul>
+  <li><a href="http://www.radiumsoftware.com/0702.html#070201">Identicon - Radium Software</a>
+  <li><a href="http://www.codinghorror.com/blog/archives/000774.html">Coding Horror: Identicons for .NET</a>
+  <li><a href="http://cocococoa.dtiblog.com/blog-entry-28.html">ここここあ JavaScriptとVMLでIdenticon</a>
+</ul>
+
+<p>
+特に、「Coding Horror: Identicons for .NET」にあった C# による
+Identicon の実装は大変参考になりました。というより、 identicon.js は、
+<a href="http://www.codinghorror.com/" >Jeff Atwood</a> と
+<a href="http://d.hatena.ne.jp/uupaa/20080723/1216748383" >Jon Galloway</a> によって書かれた
+<code>Identicon-sample-vs-2005-v13/App_Code/IdenticonRenderer.cs</code> を、その C# コードから
+JavaScript へほぼ直訳したものといえます。
+</p>
+
+<p>
+参考にさせてもらったページ及びコードの作者様へ。ありがとうございます。
+</p>
+
+<p>
+To the authors of the codes and the pages.  Thank you !
+</p>
+
+<h3>使用法と例</h3>
+
+<p>
+<a href="test.html" >実行例</a>のページで動作を確認できます。また、そのコードが使用例になっています。
+</p>
+
+<p>
+IE8 は canvas タグをサポートしていません。なので IE8 でも見えるようにするために、
+<a href="http://excanvas.sourceforge.net/">ExplorerCanvas</a> (excanvas.js)
+と一緒に identicon.js を使います。
+</p>
+
+<p>ひとつは、次のように最初から canvas タグを用意しておく使い方です。</p>
+<pre>
+&lt;div&gt;
+&lt;canvas id="static_cv" width="90" height="90"&gt;&lt;/canvas&gt;
+3113572969
+&lt;/div&gt;
+</pre>
+
+<p>
+そして、 head タグ内の script タグ内で、ページロード後に Identicon
+クラスをインスタンス化します。引数は canvas タグの id と、描画する柄の元となる数字
+(32bit integer) と、サイズです。
+</p>
+
+<pre>
+window.onload = function () {
+  new Identicon('static_cv', 3113572969, 90);
+}
+</pre>
+
+<p>
+もうひとつは、実行時に canvas タグを <code>document.createElement</code> する場合です。
+IE だとその場合、excanvas.js のなかの <code>G_vmlCanvasManager.initElement</code> で
+canvas タグを初期化してやる必要があります。このことについては、 <a href="http://d.hatena.ne.jp/uupaa/20080723/1216748383">excanvas.js のハマリどころ, G_vmlCanvasManager.initElement の使い方 - latest log</a>
+が参考になりました。
+</p>
+
+<pre>
+canvas = document.createElement('canvas');
+canvas.setAttribute("width", size);
+canvas.setAttribute("height", size);
+document.body.appendChild(canvas);
+if (typeof G_vmlCanvasManager != "undefined") {
+  canvas = G_vmlCanvasManager.initElement(canvas);
+}
+new Identicon(canvas, code, size);
+</pre>
+
+<hr>
+<a href="http://www.moreslowly.jp/">moreslowly.jp</a><br>
+コンテンツは <a href="http://creativecommons.org/licenses/by/3.0/" >Attribution 3.0 Unported</a> のライセンスで利用することができます。
+
+</body></html>
